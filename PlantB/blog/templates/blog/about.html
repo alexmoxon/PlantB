@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block content %}
+{% load static %}
+<h2>NDVI: Normalized Difference Vegetation Index</h2>
+<div class="border-top pt-3">
+</div>
+<div class="container-fluid">
+    <div class="img-comp-container">
+        <div class="img-comp-img">
+            <img src="{% static 'blog/avo1.jpg' %}" width="525" height="350">
+        </div>
+        <div class="img-comp-img img-comp-overlay">
+            <img src="{% static 'blog/avoNDVI.jpg' %}" width="525" height="350">
+        </div>
+    </div>
+</div>
+<script>
+initComparisons();
+</script>
+{% endblock content %}
