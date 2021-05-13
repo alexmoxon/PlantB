@@ -1,4 +1,4 @@
-from .models import Comment, Post
+from .models import Comment
 from django import forms
 
 

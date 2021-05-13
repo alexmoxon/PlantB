@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load static %}
 {% block content %}
 <div class="jumbotron mt-3 shadow-lg">
 <article class="media content-section shadow ">
@@ -29,8 +30,9 @@
       <div>
         <h1>{{ object.title }}</h1>
         {% if object.file %}
-          {% if object.extension == '.jpg' or object.extension == 'jpeg' or object.extension == 'png' %}
+          {% if object.extension == '.jpg' or object.extension == '.jpeg' or object.extension == 'png' or object.extension == '.JPG' %}
             <a href="{{ object.file.url }}"  download ><img src="{{ object.file.url }}" alt="" class="img-fluid "></a>
+            <a href="{{ NDVI.url }}"  download ><img src="{{ NDVI.url }}" alt="" class="img-fluid "></a>
           {% elif object.extension == '.mp4' %}
             <div class="embed-responsive embed-responsive-16by9">
               <video id="video-1_html_api" class="vjs-tech" preload="auto" autoplay >
@@ -40,6 +42,7 @@
             <a href="{{ object.file.url }}"  download class="text-dark"><h5>{{ object.file }}</h5></a>
           {% else %}
             <a href="{{ object.file.url }}"  download class="text-dark"><h5>{{ object.file }}</h5></a>
+            </h5></a>
           {% endif %}
         {% endif %}
       </div>

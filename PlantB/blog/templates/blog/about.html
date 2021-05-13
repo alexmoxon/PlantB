@@ -1,19 +1,292 @@
 {% extends "blog/base.html" %}
 {% block content %}
 {% load static %}
-<h2>NDVI: Normalized Difference Vegetation Index</h2>
-<div class="border-top pt-3">
-</div>
-<div class="container-fluid">
-    <div class="img-comp-container">
-        <div class="img-comp-img">
-            <img src="{% static 'blog/avo1.jpg' %}" width="525" height="350">
-        </div>
-        <div class="img-comp-img img-comp-overlay">
-            <img src="{% static 'blog/avoNDVI.jpg' %}" width="525" height="350">
+<section class="jumbotron text-center"style="background-color: white;">
+    <h2 class="jumbotron-heading" style="color:black; font-size:3rem;"> About My Senior Project </h2>
+    <p class="text-muted">Interpreting Results - NDVI Algorithm - Building of Site </p>
+    <div class="border-top pt-3">
+    </div>
+    <h2 style="color:rgb(20, 88, 20); padding-bottom: .3em;">Understanding NDVI Results</h2>
+    <p></p>
+    <p></p>
+    <div class="row">
+        <div class="img-comp-container">
+            <div class="img-comp-img">
+                <img src="{% static 'blog/tem2.JPG' %}">
+            </div>
+            <div class="img-comp-img img-comp-overlay">
+                <img src="{% static 'blog/NDVI2.JPG' %}">
+            </div>
         </div>
     </div>
-</div>
+    <p style="padding-top:1em;"></p>
+    <p></p>
+      <div class="container my-bg">
+          <p></p>
+        <div class="mt-1 bg-white shadow-lg">
+            <article class="media content-section shadow">
+              <img src="{% static 'blog/green.png' %}" alt="" class="article-img rounded-circle img-thumbnail img-fluid shadow">
+              </a>
+              <div class="media-body">
+                <div class="article-metadata d-flex justify-content-between">
+                  <a class="mr-2 "><h3>Green/Yellow = Good</h3></a>
+                    <small class="text-muted"></small>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <p class="article-content text-justify text-truncate overflow-hidden">Green within your converted image indicates a healthy plant. The higher amount of green within your image, the more efficient your plant is at photosynthesizing & taking in nurtients.</p>
+                </div>
+              </div>
+            </article>
+            <article class="media content-section shadow">
+                <img src="{% static 'blog/red.png' %}" alt="" class="article-img rounded-circle img-thumbnail img-fluid shadow">
+                </a>
+                <div class="media-body">
+                  <div class="article-metadata d-flex justify-content-between">
+                    <a class="mr-2 "><h3>Red = Bad</h3></a>
+                      <small class="text-muted"></small>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <p class="article-content text-justify text-truncate overflow-hidden">Red within your converted image indicates an unhealthy plant. We suggest uploading a picture of it to our forum for further analyzing by fellow members.</p>
+                  </div>
+                </div>
+              </article>
+              <article class="media content-section shadow">
+                <img src="{% static 'blog/grey.png' %}" alt="" class="article-img rounded-circle img-thumbnail img-fluid shadow">
+                </a>
+                <div class="media-body">
+                  <div class="article-metadata d-flex justify-content-between">
+                    <a class="mr-2 "><h3>Gray = Ignore</h3></a>
+                      <small class="text-muted"></small>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <p class="article-content text-justify text-truncate overflow-hidden">Grey within your converted image indicates the absence of vegetation, which we ignore when trying to assess plant health.</p>
+                  </div>
+                </div>
+              </article>
+        </div> 
+    </div>
+</section>
+<section class="jumbotron text-center"style="background-color: white;">
+    <h2 style="color:rgb(20, 88, 20); padding-bottom: .5em;">About NDVI Algorithm</h2>
+    <div class="border-top pt-3">
+    </div>
+    <div class="card-deck mt-3">
+        <div class="card">
+          <img src="{% static 'blog/import2.png' %}" class="card-img-top" alt="Imports">
+          <div class="card-body">
+            <h3 class="card-title mt-3">Libraries</h3>
+            <p class="card-text">Python Libraries that are needed in the NDVI algorithm & their primary functions.</p>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Breakdown
+              </button>
+              <!-- Modal 1 -->
+              <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title" id="exampleModalLabel"> Libraries & Functions: </h3>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-content">
+                      <img src="{% static 'blog/import2.png' %}" alt="Imports">
+                    </div>
+                    <div class = "modal-body" style="text-align:left;">
+                      <ul class="list-group">
+                        <li class="list-group-item"><b>Warnings.filterwarning('ignore'):</b> Ignores warnings of potential library depreciation.</li>
+                        <li class="list-group-item"><b>imageio:</b> Provides interface to read and write image data.</li>
+                        <li class="list-group-item"><b>datetime:</b> Used to return custom filename based on date/time of upload.</li>
+                        <li class="list-group-item"><b>django.db.models:</b> Used to get model ImageField.</li>
+                        <li class="list-group-item"><b>matplotlib.pyplot:</b> Provides functions used in MATPLAB used in creating NDVI image figure.</li>
+                        <li class="list-group-item"><b>matplotlib.ticker:</b> Provides markers on image to plot pixel data after converted.</li>
+                        <li class="list-group-item"><b>matplotlib.colors.LinearSegmentedColormap:</b> Provides mapping of converted NDVI pixel colors.</li>
+                      </ul>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary"data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="card">
+            <img src="{% static 'blog/colormap1.png' %}" class="card-img-top" alt="Algo 2">
+            <div class="card-body">
+              <h3 class="card-title">Colormap</h3>
+              <p class="card-text">Also called a color table or palette, is an array of colors used to map pixel data to their converted color values.</p>
+            </div>
+            <div class="card-footer">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal1">
+                  Breakdown
+                </button>
+                <!-- Modal 2 -->
+                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel1">Initializing Colormap</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-content">
+                        <img src="{% static 'blog/colormap1.png' %}" alt="Algo">
+                      </div>
+                      <div class = "modal-body" style="text-align:left;">
+                        <ul class="list-group">
+                          <li class="list-group-item"><b>def __init__():</b> Produces a basename for image file with ending based on the current date/time.</li>
+                          <li class="list-group-item"><b>(cont.)-__init__:</b> Matplotlib then opens the instance file & provides the colormapping variables.</li>
+                          <li class="list-group-item"><b>def create_colormap():</b> Produces the colormapping variables used when converting image to NDVI.</li>
+                          <li class="list-group-item"><b>def create_colorbar():</b> Produces colorbar on converted image, which can be used to assess NDVI image results.</li>
+                          <li class="list-group-item"><b>(cont.)-create_colorbar():</b> Plots the location of colorbar within the converted image & adds NDVI colorbar label.</li>
+                        </ul>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="card">
+            <img src="{% static 'blog/NDVIAlgo.png' %}" class="card-img-top" alt="Algo 3">
+            <div class="card-body">
+              <h3 class="card-title">NDVI Equation</h3>
+              <p class="card-text">Converts photo into three image-bands: Red, Green, Blue. Image-bands are then mapped as a numeric values based off pixel reflection.</p>
+            </div>
+            <div class="card-footer">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal2">
+                  Breakdown
+                </button>
+                <!-- Modal 3 -->
+                <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h3 class="modal-title" id="exampleModalLabel">NDVI Algorithm Breakdown</h3>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-content">
+                        <img src="{% static 'blog/NDVIAlgo.png' %}" alt="Algo 3">
+                      </div>
+                      <div class = "modal-body" style="text-align:left;">
+                        <ul class="list-group">
+                          <li class="list-group-item"><b>1.</b> Takes in image instance and converts into three image-bands (Red, Green, Blue).</li>
+                          <li class="list-group-item"><b>2.</b> Each pixel within the bands is saved as a float type (1 or 0) based off its reflection.</li>
+                          <li class="list-group-item"><b>3.</b> Blue pixels within the image instance are then filtered out.</li>
+                          <li class="list-group-item"><b>4.</b> NDVI equation is then run on the numeric image-bands & saved.</li>
+                          <li class="list-group-item"><b>5.</b> Colormap is then applied to the numeric NDVI data to produce image.</li>
+                          <li class="list-group-item"><b>6.</b> Colorbar is then added to the NDVI image, helping understand results.</li>
+                        </ul>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+      <p style="padding-bottom: 1.5em;"></p>
+      <a target="_blank" href="https://github.com/alexmoxon/PlantB" class="btn text-white m-1"><i class="fas fa-code-branch"></i> View Site Source Code</a>
+</section>
+
+<section class="jumbotron text-center"style="background-color: white;">
+  <h2 style="color:rgb(20, 88, 20);">Building of Site</h2>
+  <p></p>
+  <div class="border-top pt-3">
+  </div>
+  <p style="padding-bottom: 1.5em;"></p>
+    <div class="col-lg-12">
+        <div class="main-timeline">
+            <div class="timeline">
+                <a class="timeline-content">
+                    <span class="timeline-year">1st.</span>
+                    <div class="timeline-icon">
+                        <i class="fa fa-database"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="title">Django - Bootstrap - SQLite</h3>
+                        <p></p>
+                        <p class="description">
+                            Django is a high-level Python Web Framework that allows you to easily create complex, database-driven websites with the use of model-template-views.
+                            Bootstrap is the most popular HTML, CSS, & JS framework. It's used to create responsive web projects, tailored to a users screen size.
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div class="timeline">
+                <a class="timeline-content">
+                    <span class="timeline-year">2nd.</span>
+                    <div class="timeline-icon">
+                        <i class="fas fa-file-code"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="title">Created HTML Templates</h3>
+                        <p></p>
+                        <p class="description">
+                           I then created skeleton HTML files for all the sites pages. Once all the HTML skeletons were completed, I then worked on creating the navigation bar. Linking all of the pages & ensuring it was responsive to different screen sizes with the help of Bootstrap classes.
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div class="timeline">
+                <a class="timeline-content">
+                    <span class="timeline-year">3rd.</span>
+                    <div class="timeline-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <div class="content">2
+                        <h3 class="title">Created User, Post, & Comment Views</h3>
+                        <p></p>
+                        <p class="description">
+                            After finished with the HTML files I created forms for registering to the site & profile settings, along with views to all HTML pages, Upload/Delete forms, & a search function for posts within the site. After Adding the Post view, I implemented a comment view so users could get feedback from others about their NDVI results.
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div class="timeline">
+                <a class="timeline-content">
+                    <span class="timeline-year">4th.</span>
+                    <div class="timeline-icon">
+                        <i class="fa fa-sitemap"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="title">
+                          linked NDVI Equation to Post Form</h3>
+                        <p></p>
+                        <p class="description">
+                            Couldn't figure this out -> If you know how to link a matplot create image instance & link to the upload form pk, instead of outputting to the root directory & being unaccessable from the server please let me know.
+                        </p>
+                    </div>
+                </a>
+            </div>
+            <div class="timeline">
+                <a class="timeline-content">
+                    <span class="timeline-year">5th.</span>
+                    <div class="timeline-icon">
+                        <i class="fab fa-docker"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="title">Docker Image to GCP Container</h3>
+                        <p></p>
+                        <p class="description">
+                            I then created a Dockerfile from a requirements.txt file & ran the Docker Image to test sites functionality. Once debugged I created a Docker Container from the image & saved as a tar ball. Then pushed Docker Container to my GCP instance after linking SSH keys. Then I linked my static IP endpoint to my load balancer & finished by connecting my PostgresSQL database to my IP Endpoint.
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+      </div>
+</section>
 <script>
 initComparisons();
 </script>

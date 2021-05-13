@@ -19,6 +19,7 @@ from .forms import CommentForm
 from django.db.models import Q
 
 
+
 def home(request):
     context = {
         'posts': Post.objects.all()
@@ -34,8 +35,6 @@ def search(request):
     paginate_by=2
     context={ 'posts':result }
     return render(request,template,context)
-   
-
 
 def getfile(request):
    return serve(request, 'File')
@@ -53,11 +52,12 @@ class UserPostListView(ListView):
     model = Post
     template_name = 'blog/user_posts.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'
-    paginate_by = 2
+    paginate_by = 4
 
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Post.objects.filter(author=user).order_by('-date_posted')
+
 
 
 class PostDetailView(DetailView):
@@ -101,6 +101,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
 @login_required
 def add_comment_to_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
