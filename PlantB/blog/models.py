@@ -1,9 +1,13 @@
 import warnings
+from django.core.files.storage import FileSystemStorage
 warnings.filterwarnings('ignore')
+import datetime
+from django.conf import settings
+from django.http import HttpResponse
 from scipy import misc
 from django.utils.text import slugify
 from django.db import models
-from django.core.files import File
+from django.core.files.storage import FileSystemStorage
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -12,6 +16,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_web_app.settings')
 import warnings
 warnings.filterwarnings('ignore')
 from django.core.files.images import ImageFile
+from django.core.files.base import ContentFile
+from django.core.files import File
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
@@ -21,6 +27,7 @@ from PIL import Image
 from matplotlib import colors, ticker
 from matplotlib.colors import LinearSegmentedColormap
 import os
+import io
 
 def upload_location(instance, filename):
     return "%s/%s" %(instance.id, filename)
@@ -28,19 +35,23 @@ def upload_location(instance, filename):
 
 class Post(models.Model):
     
-    title = models.CharField(max_length=30)
-    file = models.ImageField(null=True,blank=True,upload_to='Files')
-    temp = models.FileField(null=True, blank=True, upload_to='Files/Converted')
+    title = models.CharField(max_length=50)
+    file = models.FileField(null=True,blank=True,upload_to='Files')
+    temp = models.FileField()
     content = models.TextField(max_length=250)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
-        self.temp = main(self.file)
+        """instance = self.author
+        instance.file.save(Post.file.url, main(self.file))"""
+        self.temp = main_function(self.file)
+        """self.file = temp"""
+        """self.temp.save(temp, content)"""
 
         """self.file.url = file"""
 
-        return super(Post, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return self.title
@@ -70,12 +81,19 @@ class Comment(models.Model):
 def approved_comments(self):
     return self.comments.filter(approved_comment=True)
 
+class MyFileStorage(FileSystemStorage):
+    def get_available_name(self, name):
+        if self.exists(name):
+            os.remove(os.path.join(settings.MEDIA_ROOT, name))
+            return name
+
 class NDVI(object):
 
     def __init__(self, file_path):
-        """suffix = datetime.datetime.now().strftime("%y%m%d_%H%M%S")"""
+        suffix = datetime.datetime.now().strftime("%y%m%d_%H%M%S")
+        basename = "ndvi"
         self.image = plt.imread(file_path)
-        """self.output_name = "_".join([basename, suffix])"""
+        self.output_name = "_".join([basename, suffix])
         self.colors = ['gray', 'gray', 'red', 'yellow', 'green']
 
     def create_colormap(self, *args):
@@ -105,18 +123,31 @@ class NDVI(object):
         bottom[bottom == 0] = 1  
         VIS = (blue + green) ** 2 / bottom
         NDVI = (NIR - VIS) / (NIR + VIS)
+        
 
-        output_name = "NDVI"
 
         fig, ax = plt.subplots()
         image = ax.imshow(NDVI, cmap=self.create_colormap(*self.colors))
         plt.axis('off')
 
         self.create_colorbar(fig, image)
-
         extent = ax.get_window_extent().transformed(fig.dpi_scale_trans.inverted())
+        figure = io.BytesIO()
+        image.get_figure().savefig(figure, format='png')
+        image_file = ImageFile(figure.getvalue(), file_path)
+        ndvi = plt.savefig(file_path, dpi = 600, transparent=True, bbox_inches=extent, pad_inches=0, format="png")
+        """ndvi.save(temp, 'png')"""
+        temp = ImageFile(figure, name=self.output_name+'.png')
+        return temp
+        ImageFile(plt.savefig(temp))
+        """content_file = ContentFile(f.getvalue())
+        model_object = Post.objects.get(Post.temp)
+        model_object.sav(self.output_name, content_file)
         img = Image.open(file_path)
-        fig.savefig(output_name, dpi = 600, transparent=True, bbox_inches=extent, pad_inches=0)
+        post = self.get_object()"""
+
+        """plt.savefig(os.path.join('Files', 'ndvi_%s.png'))"""
+        plt.savefig(self.output_name, dpi = 600, transparent=True, bbox_inches=extent, pad_inches=0)
         plt.show()
         plt.close()
         """
@@ -143,7 +174,7 @@ class NDVI(object):
 
 
 
-def main(file):
+def main_function(object):
 
-    blue_ndvi = NDVI(file)
-    blue_ndvi.convert(file)
+    blue_ndvi = NDVI(object)
+    return blue_ndvi.convert(object)
