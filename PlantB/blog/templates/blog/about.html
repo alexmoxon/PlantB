@@ -46,7 +46,7 @@
                       <small class="text-muted"></small>
                   </div>
                   <div class="d-flex justify-content-between">
-                    <p class="article-content text-justify text-truncate overflow-hidden">Red within your converted image indicates an unhealthy plant. We suggest uploading a picture of it to our forum for further analyzing by fellow members.</p>
+                    <p class="article-content text-justify text-truncate overflow-hidden">Red within your converted image indicates an unhealthy plant. We suggest asking users for input about potential problems, if your plant is primarily red. Health problems can be anything from over/under-watering, disease, sunlight problems, and pests.</p>
                   </div>
                 </div>
               </article>
@@ -244,7 +244,7 @@
                     <div class="timeline-icon">
                         <i class="fas fa-id-card"></i>
                     </div>
-                    <div class="content">2
+                    <div class="content">
                         <h3 class="title">Created User, Post, & Comment Views</h3>
                         <p></p>
                         <p class="description">
@@ -264,7 +264,7 @@
                           linked NDVI Equation to Post Form</h3>
                         <p></p>
                         <p class="description">
-                            Couldn't figure this out -> If you know how to link a matplot create image instance & link to the upload form pk, instead of outputting to the root directory & being unaccessable from the server please let me know.
+                            Took in user image from model form & pushed it to an empty, temporary ImageFile. Before producing a PK for the Post, I sent the uploaded file to my NDVI equation. Producing an array of floats with NDVI score for every pixel, then used io.BytesIO() to convert the array into a matplot image & tied it to the PK Post form instance.
                         </p>
                     </div>
                 </a>

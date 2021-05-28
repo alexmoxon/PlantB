@@ -37,7 +37,7 @@ class Post(models.Model):
     
     title = models.CharField(max_length=50)
     file = models.FileField(null=True,blank=True,upload_to='Files')
-    temp = models.FileField()
+    temp = models.FileField(upload_to='Files')
     content = models.TextField(max_length=250)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
